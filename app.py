@@ -34,8 +34,17 @@ def salveaza():
         conn.commit()
         status_label.config(text="✅ Salvat!")
         afiseaza()
+
+        # 🔹 Golește câmpurile după salvare
+        for entry in entries:
+            if isinstance(entry, tk.Entry):
+                entry.delete(0, tk.END)
+            elif isinstance(entry, ttk.Combobox):
+                entry.set("")  # resetează combobox-ul
+
     except Exception as e:
         status_label.config(text=f"❌ Eroare: {e}")
+
 
 def cauta():
     valoare = entry_cautare.get().strip()
